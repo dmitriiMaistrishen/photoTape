@@ -14,7 +14,7 @@ nginx.config should contain something like:
     location /src/ {
 			proxy_pass http://localhost:8080/;
 		}
-
-		location / {
+		
+    location / {
 			root /path/to/files/server/static/;
 		}
