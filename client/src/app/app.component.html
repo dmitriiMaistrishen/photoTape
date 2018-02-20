@@ -1,0 +1,39 @@
+<app-head></app-head>
+
+<!--<div 
+*ngIf="interaction.displayRegistration"
+rn-background 
+class="w3-grey w3-opacity-min w3-display-container" 
+style="position: fixed;">
+  <app-registration></app-registration>
+</div>-->
+
+<div *ngIf="interaction.displayRegistration" style="position: fixed; z-index: 1">
+  <div rn-background 
+  class="w3-grey w3-opacity-min w3-display-container"
+  (click)="interaction.changeRegistrationState()">
+  </div>
+  <app-registration></app-registration>
+</div>
+
+<div *ngIf="interaction.displayNewPostComponent" style="position: fixed; z-index: 1">
+  <div rn-background 
+  class="w3-grey w3-opacity-min w3-display-container"
+  (click)="interaction.changeNewPostState()">
+  </div>
+  <<app-new-post></app-new-post>
+</div>
+
+
+<br/><br/><br/>
+
+<div class="tape w3-container">
+  
+  <!--<app-registration></app-registration>
+  <app-new-post></app-new-post>-->
+  <app-tape></app-tape>
+  
+</div>
+
+
+

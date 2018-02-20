@@ -1,0 +1,32 @@
+<div class="w3-top" style="z-index: 10">
+  <div class="w3-bar w3-indigo w3-large">
+  	<span class="w3-bar-item"><!--Logo--><img src="assets/logo2.gif" width="35px"></span>
+  	<span 
+  	class="w3-bar-item w3-bottombar w3-border-indigo w3-hover-border-white"
+  	(click)="interaction.changeRegistrationState()">
+  		Register
+  	</span>
+  	<span 
+  	class="w3-bar-item w3-bottombar w3-border-indigo w3-hover-border-white"
+  	(click)="interaction.changeNewPostState()">
+  		New post
+  	</span>
+
+  	<span *ngIf="!mainlib.data.getUserName()">
+	    <span class="w3-bar-item w3-right">
+	    	<button class="w3-round-large w3-white" (click)="mainlib.authoriseUser(userName, userPassword)">Authorise</button>
+	    </span>
+	    <span class="w3-bar-item w3-right">
+	    	Password: <input type="text" class="w3-round-xxlarge" [(ngModel)]="userPassword">
+	    </span>
+	    <span class="w3-bar-item w3-right"> 
+	    	User: <input type="text" class="w3-round-xxlarge" [(ngModel)]="userName">
+	    </span>
+	</span>
+	<span *ngIf="mainlib.data.getUserName()">
+		<span class="w3-bar-item w3-right">
+			@{{mainlib.data.getUserName()}}
+		</span>
+	</span>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="w3-container w3-display-middle w3-card-4 w3-white w3-padding-16 w3-center w3-round-large">
+	<h3>New post:</h3>
+	<!--<p>text: <input type="text" [(ngModel)]="text"/></p>-->
+	<input type="text" class="w3-input" [(ngModel)]="text"/>
+	<!--<textarea [(ngModel)]="text"></textarea>-->
+	<div class="w3-gray" (click)="fileInput.click()">
+		<div class="w3-panel w3-grey w3-center w3-round w3-opacity">
+			<br>
+			<!--<img class="w3-opacity" src="assets/plus.gif" width="40px">-->
+			<p class="">+click to add some pictures</p>
+			<br>
+		</div>
+		<input style="display: none" type="file" #fileInput (change)="onChange($event)"/>
+	</div>
+	<div *ngIf="files.length > 0">
+		<h4>Added files:</h4>
+		<p *ngFor="let file of files">{{file.name}}</p>
+	</div>
+	<button (click)="add()">Post it!</button>
+</div>

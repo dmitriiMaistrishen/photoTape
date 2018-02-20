@@ -1,0 +1,103 @@
+<div class="">
+
+	<div *ngIf="!mainlib.data.getUserName()"
+	class="w3-panel w3-leftbar w3-border-yellow w3-pale-yellow w3-margin "
+	(click)="interaction.changeRegistrationState()">
+		<h5>
+			To be able to add posts and comments, please authorise or check our 
+			<button class="w3-pale-yellow  w3-round-large">
+				<em>very simple registration</em>
+			</button>
+		</h5>
+	</div>
+
+	<div *ngIf="mainlib.data.getUserName()" 
+	class="w3-panel w3-grey w3-center w3-round w3-opacity w3-margin w3-card-2 w3-animate-top"
+	(click)="interaction.changeNewPostState()">
+		<br>
+		<h5>+add new post</h5>
+		<br>
+	</div>
+
+	<div class="w3-container w3-card-2 w3-margin w3-padding-16 w3-white w3-round-large w3-center" >
+		<h4>Select posts by:
+		<select [(ngModel)]="mainlib.sortBy" (change)="mainlib.refresh()"
+		class="w3-white">
+			<option value="time">time</option>
+			<option value="likeNum">popularity</option>
+		</select></h4>
+	</div>
+
+	<div *ngFor="let id of mainlib.postsIdList" 
+	class="w3-container w3-card-4 w3-margin w3-padding-16 w3-white">
+
+		<h4>@{{ mainlib.data.getPost(id)['author'] }}</h4>
+		<p>{{ mainlib.data.getPost(id)['text'] }}</p>
+		<div *ngIf="mainlib.data.getPost(id)['files'].length > 0" style="text-align: center">
+			<div *ngFor="let file of mainlib.data.getPost(id)['files']"
+			class="w3-margin">
+				<img 
+				src="{{ mainlib.repository.staticPath + '/' + file['path'] }}"
+				width="400px" >
+			</div>
+		</div>
+
+		<div class="w3-center w3-padding-medium w3-border-top">
+			<img src="assets/like.gif" width="30px" (click)="likePost(id)">  
+			<span style="margin-left: 10px; margin-right: 10px; font-size: large">{{mainlib.data.getPost(id)['likes']}}</span>  
+			<img src="assets/dislike.gif" width="30px" (click)="dislikePost(id)">
+		</div>
+
+		<div class="w3-border-top">
+			<br>
+			<!--<h5 class="w3-center">Users comments:</h5>-->
+			<div 
+			*ngFor="let comment of mainlib.data.getPost(id)['comments']"
+			class="w3-container w3-card-4 w3-margin w3-border">
+				<h4>@{{ mainlib.data.getComment(comment)['author'] }}</h4>
+				<p>{{ mainlib.data.getComment(comment)['text'] }}</p>
+				<div *ngIf="mainlib.data.getComment(comment)['files'].length > 0" style="text-align: center">
+					<div *ngFor="let file of mainlib.data.getComment(comment)['files']"
+					class="w3-margin">
+						<img 
+						src="{{ mainlib.repository.staticPath + '/' + file['path'] }}"
+						width="350px" >
+					</div>
+				</div>
+
+					<div class="w3-center w3-padding-medium w3-border-top">
+						<img src="assets/like.gif" width="25px" (click)="likeComment(comment)">  
+						<span style="margin-left: 10px; margin-right: 10px; font-size: medium">
+							{{mainlib.data.getComment(comment)['likes']}}
+						</span>  
+						<img src="assets/dislike.gif" width="25px" (click)="dislikeComment(comment)">
+					</div>
+			</div>
+
+			<div class="w3-panel w3-grey w3-center w3-round w3-opacity"
+			*ngIf="commentablePost != id"
+			(click)="selectPost(id)">
+				+add comment
+			</div>
+
+			<div 
+			class="w3-container w3-card-2 w3-margin w3-padding-small w3-border w3-round w3-center"
+			*ngIf="id == commentablePost">
+				<p>Add your comment:</p>
+				<input type="text" class="w3-input w3-margin-top w3-margin-bottom" [(ngModel)]="commentText">
+
+				<button (click)="fileInput.click()" class="w3-white w3-round">Add files</button>
+				 <button (click)="addComment(id)" class="w3-white w3-round">Comment it!</button>
+
+				<input style="display: none" type="file" #fileInput (change)="onChange($event)"/>
+
+				<div *ngIf="commentFiles.length > 0">
+					<p>Added files:</p>
+					<p *ngFor="let file of commentFiles">{{file.name}}</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
